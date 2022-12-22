@@ -1,0 +1,35 @@
+libname clean "/home/u62262551/BAN110-Data Preparation";
+
+DATA CLEAN.PATIENTS;
+	INFILE "/home/u62262551/BAN110-Data Preparation/Patients.txt" ;
+	INPUT 	@1 PATNO $3.
+			@4 GENDER $1.
+			@5 VISIT MMDDYY10.
+			@15 HR 3.
+			@18 SBP 3.
+			@21 DBP 3.
+			@24 DX $3.
+			@27 AE $1.;
+
+LABEL 	PATNO = "Patient Number"
+		GENDER = "Gender"
+		VISIT = "Visit Date"
+		HR = "Heart Rate"
+		SBP = "Systolic Blood Pressure"
+		DBP = "Diastolic Blood Pressure"
+		DX = "Diagnosis Code"
+		AE = "Adverse Event?";
+
+FORMAT VISIT MMDDYY10.;
+
+RUN;
+
+proc sort data=Clean.Patients; 
+   by Patno Visit;
+
+
+proc print data=Clean.Patients; 
+  			id Patno;
+run;
+
+ 
